@@ -39,6 +39,13 @@ function App() {
     profileToLinkConversion: 0
   })
 
+  // Estado para comentarios
+  const [comments, setComments] = useState({
+    bien: '',
+    mejorar: '',
+    bloqueos: ''
+  })
+
   // Cargar datos del localStorage al inicializar
   useEffect(() => {
     // Cargar cuentas guardadas
@@ -218,7 +225,12 @@ Enlace: ${accountData.link}
 5. Clicks perfil 24 h: ${dailyMetrics.profileClicks}
 6. Clicks enlace 24 h: ${dailyMetrics.linkClicks}
 7. Conversión de Visitas a visitas al perfil 24 h: ${calculations.visitToProfileConversion.toFixed(2)}%
-8. Conversión de Clicks Perfil a toques en enlace externo 24 h: ${calculations.profileToLinkConversion.toFixed(2)}%`
+8. Conversión de Clicks Perfil a toques en enlace externo 24 h: ${calculations.profileToLinkConversion.toFixed(2)}%
+
+🔎 Comentario:
+- Bien: ${comments.bien}
+- A mejorar: ${comments.mejorar}
+- Bloqueos / peticiones: ${comments.bloqueos}`
 
     return report
   }
@@ -235,7 +247,7 @@ Enlace: ${accountData.link}
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50">
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Header */}
         <div className="text-center py-6">
@@ -461,7 +473,7 @@ Enlace: ${accountData.link}
                   type="number"
                   placeholder="0"
                   value={dailyMetrics.visits}
-                  onChange={(e) => setDailyMetrics({...dailyMetrics, visits: e.target.value})}
+                  onChange={(e) => setDailyMetrics({ ...dailyMetrics, visits: e.target.value })}
                 />
               </div>
               <div className="space-y-2">
@@ -516,6 +528,45 @@ Enlace: ${accountData.link}
                   (Clicks enlace / Visitas) × 100
                 </p>
               </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Comentarios */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Comentarios</CardTitle>
+            <CardDescription>
+              Agrega observaciones para cada sección
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <Label htmlFor="bien" className="mb-2 block">Bien:</Label>
+              <Input
+                id="bien"
+                placeholder="¿Qué salió bien?"
+                value={comments.bien}
+                onChange={e => setComments({ ...comments, bien: e.target.value })}
+              />
+            </div>
+            <div>
+              <Label htmlFor="mejorar" className="mb-2 block">A mejorar:</Label>
+              <Input
+                id="mejorar"
+                placeholder="¿Qué se puede mejorar?"
+                value={comments.mejorar}
+                onChange={e => setComments({ ...comments, mejorar: e.target.value })}
+              />
+            </div>
+            <div>
+              <Label htmlFor="bloqueos" className="mb-2 block">Bloqueos / peticiones:</Label>
+              <Input
+                id="bloqueos"
+                placeholder="¿Hubo bloqueos o peticiones?"
+                value={comments.bloqueos}
+                onChange={e => setComments({ ...comments, bloqueos: e.target.value })}
+              />
             </div>
           </CardContent>
         </Card>
