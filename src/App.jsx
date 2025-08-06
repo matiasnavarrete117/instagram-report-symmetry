@@ -7,6 +7,70 @@ import { Separator } from '@/components/ui/separator.jsx'
 import { Instagram, Calculator, Save, Copy, Calendar, Plus, X, Trash2, Edit } from 'lucide-react'
 import './App.css'
 
+// Array de frases inspiradoras para el equipo de fitness
+const inspirationalQuotes = [
+  {
+    text: "El éxito representa el 1% de tu trabajo, y es el resultado del otro 99%, que llamamos fracaso",
+    author: "Soichiro Honda - Fundador de Honda"
+  },
+  {
+    text: "La disciplina es el puente entre las metas y los logros",
+    author: "Jim Rohn"
+  },
+  {
+    text: "No es que sea muy inteligente, es que me quedo más tiempo con los problemas",
+    author: "Albert Einstein"
+  },
+  {
+    text: "El único lugar donde el éxito viene antes que el trabajo es en el diccionario",
+    author: "Vidal Sassoon"
+  },
+  {
+    text: "La diferencia entre lo imposible y lo posible está en la determinación",
+    author: "Tommy Lasorda"
+  },
+  {
+    text: "Cada día es una nueva oportunidad para ser mejor que ayer",
+    author: "Desconocido"
+  },
+  {
+    text: "El progreso no es casualidad, es el resultado de un esfuerzo constante",
+    author: "Mahatma Gandhi"
+  },
+  {
+    text: "La consistencia es más importante que la perfección",
+    author: "Desconocido"
+  },
+  {
+    text: "Tu cuerpo puede soportar casi cualquier cosa, es tu mente la que necesitas convencer",
+    author: "Desconocido"
+  },
+  {
+    text: "El fitness no es un destino, es un estilo de vida",
+    author: "Desconocido"
+  },
+  {
+    text: "Los pequeños progresos diarios son la clave del éxito a largo plazo",
+    author: "Robert Collier"
+  },
+  {
+    text: "La motivación te hace empezar, el hábito te hace continuar",
+    author: "Jim Ryun"
+  },
+  {
+    text: "No cuentes los días, haz que los días cuenten",
+    author: "Muhammad Ali"
+  },
+  {
+    text: "El esfuerzo de hoy es la inversión del mañana",
+    author: "Desconocido"
+  },
+  {
+    text: "La excelencia no es una habilidad, es una actitud",
+    author: "Ralph Marston"
+  }
+]
+
 function App() {
   // Estados para datos fijos (guardados en caché)
   const [accountData, setAccountData] = useState({
@@ -46,6 +110,12 @@ function App() {
     bloqueos: ''
   })
 
+  // Estado para frase del día
+  const [dailyQuote, setDailyQuote] = useState({
+    text: '',
+    author: ''
+  })
+
   // Cargar datos del localStorage al inicializar
   useEffect(() => {
     // Cargar cuentas guardadas
@@ -76,6 +146,21 @@ function App() {
     const formattedDate = `${day}/${month}/${year}`
     
     setReportDate(formattedDate)
+
+    // Seleccionar frase del día basada en la fecha actual
+    const currentDate = new Date()
+    const dayOfYear = Math.floor((currentDate - new Date(currentDate.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24))
+    const quoteIndex = dayOfYear % inspirationalQuotes.length
+    const selectedQuote = inspirationalQuotes[quoteIndex]
+    setDailyQuote(selectedQuote)
+    
+    // Actualizar la frase en el HTML
+    const quoteTextElement = document.getElementById('quote-text')
+    const quoteAuthorElement = document.getElementById('quote-author')
+    if (quoteTextElement && quoteAuthorElement) {
+      quoteTextElement.textContent = selectedQuote.text
+      quoteAuthorElement.textContent = `— ${selectedQuote.author}`
+    }
   }, [])
 
   // Calcular conversiones automáticamente cuando cambien las métricas
