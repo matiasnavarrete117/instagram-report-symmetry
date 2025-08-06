@@ -9,6 +9,7 @@ import './App.css'
 
 // Array de frases inspiradoras para el equipo de fitness
 const inspirationalQuotes = [
+  // Frases originales
   {
     text: "El éxito representa el 1% de tu trabajo, y es el resultado del otro 99%, que llamamos fracaso",
     author: "Soichiro Honda - Fundador de Honda"
@@ -68,6 +69,124 @@ const inspirationalQuotes = [
   {
     text: "La excelencia no es una habilidad, es una actitud",
     author: "Ralph Marston"
+  },
+  // Frases de David Goggins
+  {
+    text: "No puedes crecer sin dolor. No puedes ganar sin sufrimiento. No puedes cambiar sin incomodidad",
+    author: "David Goggins"
+  },
+  {
+    text: "La mente es la herramienta más poderosa que tienes. Úsala para tu beneficio, no para tu destrucción",
+    author: "David Goggins"
+  },
+  {
+    text: "No te rindas cuando estés cansado. Ríndete cuando hayas terminado",
+    author: "David Goggins"
+  },
+  {
+    text: "El dolor es temporal. El orgullo es para siempre",
+    author: "David Goggins"
+  },
+  {
+    text: "No puedes cambiar tu pasado, pero puedes cambiar tu futuro",
+    author: "David Goggins"
+  },
+  {
+    text: "La disciplina es la diferencia entre lo que quieres ahora y lo que quieres más",
+    author: "David Goggins"
+  },
+  // Otras frases motivacionales
+  {
+    text: "No te rindas. Sufre ahora y vive el resto de tu vida como un campeón",
+    author: "Muhammad Ali"
+  },
+  {
+    text: "El dolor es temporal. Puede durar un minuto, una hora, un día, o un año, pero eventualmente se detendrá y algo más tomará su lugar. Si me rindo, sin embargo, durará para siempre",
+    author: "Lance Armstrong"
+  },
+  {
+    text: "Si quieres algo que nunca has tenido, debes estar dispuesto a hacer algo que nunca has hecho",
+    author: "Thomas Jefferson"
+  },
+  {
+    text: "El éxito no es final, el fracaso no es fatal: es el coraje para continuar lo que cuenta",
+    author: "Winston Churchill"
+  },
+  {
+    text: "La diferencia entre lo ordinario y lo extraordinario es ese pequeño extra",
+    author: "Jimmy Johnson"
+  },
+  {
+    text: "No hay ascensor al éxito, tienes que tomar las escaleras",
+    author: "Zig Ziglar"
+  },
+  {
+    text: "El futuro pertenece a quienes creen en la belleza de sus sueños",
+    author: "Eleanor Roosevelt"
+  },
+  {
+    text: "La única manera de hacer un gran trabajo es amar lo que haces",
+    author: "Steve Jobs"
+  },
+  {
+    text: "No importa qué tan lento vayas, siempre y cuando no te detengas",
+    author: "Confucio"
+  },
+  {
+    text: "El éxito es ir de fracaso en fracaso sin perder el entusiasmo",
+    author: "Winston Churchill"
+  },
+  {
+    text: "La mente es todo. Lo que piensas te conviertes en eso",
+    author: "Buda"
+  },
+  {
+    text: "El único límite para nuestros logros de mañana serán nuestras dudas de hoy",
+    author: "Franklin D. Roosevelt"
+  },
+  {
+    text: "La vida es 10% lo que te pasa y 90% cómo reaccionas a ello",
+    author: "Charles R. Swindoll"
+  },
+  {
+    text: "No puedes cambiar tu destino, pero puedes cambiar tu dirección",
+    author: "Jim Rohn"
+  },
+  {
+    text: "El coraje no es la ausencia de miedo, sino el juicio de que algo más es más importante que el miedo",
+    author: "Ambrose Redmoon"
+  },
+  {
+    text: "La persistencia es muy importante. No debes renunciar a menos que te veas forzado a renunciar",
+    author: "Elon Musk"
+  },
+  {
+    text: "La calidad no es un acto, es un hábito",
+    author: "Aristóteles"
+  },
+  {
+    text: "El verdadero test no es si evitas el fracaso, porque no lo harás. Es si dejas que te endurezca o te avergüence en la inacción, o si aprendes de él",
+    author: "Barack Obama"
+  },
+  {
+    text: "No hay atajos para cualquier lugar que valga la pena ir",
+    author: "Beverly Sills"
+  },
+  {
+    text: "El éxito es la suma de pequeños esfuerzos repetidos día tras día",
+    author: "Robert Collier"
+  },
+  {
+    text: "La determinación de hoy es el éxito de mañana",
+    author: "Robert H. Schuller"
+  },
+  {
+    text: "No hay sustituto para el trabajo duro",
+    author: "Thomas Edison"
+  },
+  {
+    text: "La excelencia es un hábito, no un acto",
+    author: "Aristóteles"
   }
 ]
 
