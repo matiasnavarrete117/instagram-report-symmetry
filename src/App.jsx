@@ -78,6 +78,9 @@ function App() {
     link: ''
   })
 
+  // Estado para validación de enlace
+  const [linkError, setLinkError] = useState('')
+
   // Estados para gestión de múltiples cuentas
   const [savedAccounts, setSavedAccounts] = useState([])
   const [selectedAccountId, setSelectedAccountId] = useState('')
@@ -154,13 +157,15 @@ function App() {
     const selectedQuote = inspirationalQuotes[quoteIndex]
     setDailyQuote(selectedQuote)
     
-    // Actualizar la frase en el HTML
-    const quoteTextElement = document.getElementById('quote-text')
-    const quoteAuthorElement = document.getElementById('quote-author')
-    if (quoteTextElement && quoteAuthorElement) {
-      quoteTextElement.textContent = selectedQuote.text
-      quoteAuthorElement.textContent = `— ${selectedQuote.author}`
-    }
+    // Cargar frase del día de manera asíncrona
+    setTimeout(() => {
+      const quoteTextElement = document.getElementById('quote-text')
+      const quoteAuthorElement = document.getElementById('quote-author')
+      if (quoteTextElement && quoteAuthorElement) {
+        quoteTextElement.textContent = selectedQuote.text
+        quoteAuthorElement.textContent = `— ${selectedQuote.author}`
+      }
+    }, 100)
   }, [])
 
   // Calcular conversiones automáticamente cuando cambien las métricas
@@ -177,6 +182,8 @@ function App() {
       profileToLinkConversion: profileToLink
     })
   }, [dailyMetrics.visits, dailyMetrics.profileClicks, dailyMetrics.linkClicks])
+
+
 
   // Editar cuenta existente
   const editAccount = (accountId) => {
@@ -198,6 +205,11 @@ function App() {
       return
     }
 
+    if (!validateInstagramLink(accountData.link)) {
+      alert('Por favor, corrige el formato del enlace')
+      return
+    }
+
     const updatedAccounts = savedAccounts.map(account => 
       account.id === editingAccountId 
         ? { ...account, handler: accountData.handler, link: accountData.link }
@@ -214,6 +226,7 @@ function App() {
     
     setEditingAccountId('')
     setShowAddAccount(false)
+    setLinkError('')
     alert('Cuenta actualizada exitosamente')
   }
 
@@ -229,6 +242,11 @@ function App() {
       return
     }
 
+    if (!validateInstagramLink(accountData.link)) {
+      alert('Por favor, corrige el formato del enlace')
+      return
+    }
+
     const newAccount = {
       id: Date.now().toString(),
       handler: accountData.handler,
@@ -240,6 +258,7 @@ function App() {
     setSelectedAccountId(newAccount.id)
     localStorage.setItem('instagram-saved-accounts', JSON.stringify(updatedAccounts))
     setShowAddAccount(false)
+    setLinkError('')
     alert('Cuenta añadida exitosamente')
   }
 
@@ -282,6 +301,7 @@ function App() {
   const cancelAddAccount = () => {
     setShowAddAccount(false)
     setEditingAccountId('')
+    setLinkError('')
     // Restaurar datos de la cuenta seleccionada
     if (selectedAccountId) {
       const account = savedAccounts.find(acc => acc.id === selectedAccountId)
@@ -318,6 +338,27 @@ Enlace: ${accountData.link}
 - Bloqueos / peticiones: ${comments.bloqueos}`
 
     return report
+  }
+
+  // Validar formato de enlace de Instagram
+  const validateInstagramLink = (link) => {
+    if (!link) {
+      setLinkError('')
+      return true
+    }
+    
+    if (link.length > 55) {
+      setLinkError('El enlace no puede tener más de 55 caracteres')
+      return false
+    }
+    
+    if (!link.startsWith('https://www.instagram.com/')) {
+      setLinkError('El enlace debe comenzar con https://www.instagram.com/')
+      return false
+    }
+    
+    setLinkError('')
+    return true
   }
 
   // Copiar reporte al portapapeles
@@ -379,7 +420,7 @@ Enlace: ${accountData.link}
               Gestiona múltiples cuentas de Instagram guardadas en caché local
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4 overflow-hidden">
+          <CardContent className="space-y-4">
             {/* Selector de cuentas existentes */}
             {savedAccounts.length > 0 && !showAddAccount && (
               <div className="space-y-4">
@@ -388,16 +429,16 @@ Enlace: ${accountData.link}
                   {savedAccounts.map((account) => (
                     <div
                       key={account.id}
-                      className={`flex items-center justify-between p-2 sm:p-3 border rounded-lg cursor-pointer transition-colors w-full max-w-full overflow-hidden ${
+                      className={`flex items-center justify-between p-2 sm:p-3 border rounded-lg cursor-pointer transition-colors w-full max-w-full ${
                         selectedAccountId === account.id
                           ? 'border-blue-500 bg-blue-50'
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
                       onClick={() => selectAccount(account.id)}
                     >
-                      <div className="flex-1 min-w-0 pr-2 sm:pr-3 overflow-hidden">
+                      <div className="flex-1 min-w-0 pr-2 sm:pr-3">
                         <p className="font-medium truncate text-sm sm:text-base">@{account.handler}</p>
-                        <p className="text-xs sm:text-sm text-gray-500 truncate break-all" title={account.link}>
+                        <p className="text-xs sm:text-sm text-gray-500 link-truncate" title={account.link}>
                           {account.link}
                         </p>
                       </div>
@@ -454,17 +495,37 @@ Enlace: ${accountData.link}
                       id="newHandler"
                       placeholder="@tu_usuario"
                       value={accountData.handler}
-                      onChange={(e) => setAccountData({...accountData, handler: e.target.value})}
+                      onChange={(e) => {
+                        setAccountData({...accountData, handler: e.target.value})
+                      }}
+
+                                                                                             
+                      className="w-full"
                     />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="newLink">Enlace de la Cuenta</Label>
                     <Input
                       id="newLink"
-                      placeholder="https://instagram.com/tu_usuario"
+                      placeholder="https://www.instagram.com/tu_usuario"
                       value={accountData.link}
-                      onChange={(e) => setAccountData({...accountData, link: e.target.value})}
+                      onChange={(e) => {
+                        const newValue = e.target.value
+                        if (newValue.length <= 55) {
+                          setAccountData({...accountData, link: newValue})
+                          validateInstagramLink(newValue)
+                        }
+                      }}
+
+                      className={`w-full ${linkError ? 'border-red-500' : ''}`}
+                      maxLength={55}
                     />
+                    {linkError && (
+                      <p className="text-xs text-red-500 mt-1">{linkError}</p>
+                    )}
+                    <p className="text-xs text-gray-500">
+                      {accountData.link.length}/55 caracteres
+                    </p>
                   </div>
                 </div>
                 <div className="flex gap-2">
@@ -497,10 +558,10 @@ Enlace: ${accountData.link}
 
             {/* Mostrar cuenta seleccionada actual */}
             {selectedAccountId && !showAddAccount && (
-              <div className="mt-4 p-2 sm:p-3 bg-gray-50 rounded-lg w-full max-w-full overflow-hidden">
+              <div className="mt-4 p-2 sm:p-3 bg-gray-50 rounded-lg w-full max-w-full">
                 <p className="text-xs sm:text-sm text-gray-600 mb-1">Cuenta Activa:</p>
                 <p className="font-medium truncate text-sm sm:text-base">@{accountData.handler}</p>
-                <p className="text-xs sm:text-sm text-gray-500 truncate break-all" title={accountData.link}>
+                <p className="text-xs sm:text-sm text-gray-500 link-truncate" title={accountData.link}>
                   {accountData.link}
                 </p>
               </div>

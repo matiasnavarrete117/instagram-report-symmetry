@@ -118,3 +118,26 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Estilos básicos para inputs */
+input {
+  max-width: 100%;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Estilos para truncamiento de enlaces */
+.link-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+/* Estilos básicos para móviles */
+@media (max-width: 640px) {
+  .link-truncate {
+    font-size: 0.75rem;
+    line-height: 1.2;
+  }
+}
