@@ -85,7 +85,7 @@ function App() {
     const linkClicks = parseFloat(dailyMetrics.linkClicks) || 0
 
     const visitToProfile = visits > 0 ? (profileClicks / visits) * 100 : 0
-    const profileToLink = visits > 0 ? (linkClicks / visits) * 100 : 0
+    const profileToLink = profileClicks > 0 ? (linkClicks / profileClicks) * 100 : 0
 
     setCalculations({
       visitToProfileConversion: visitToProfile,
@@ -525,7 +525,7 @@ Enlace: ${accountData.link}
                   {calculations.profileToLinkConversion.toFixed(2)}%
                 </p>
                 <p className="text-sm text-green-600 mt-1">
-                  (Clicks enlace / Visitas) × 100
+                  (Clicks enlace / Clicks perfil) × 100
                 </p>
               </div>
             </div>
