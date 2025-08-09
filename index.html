@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
     <title>Reporte Diario Instagram</title>
     <link rel="stylesheet" href="/App.css" />
   </head>
@@ -28,12 +29,16 @@
       </div>
     </div>
     
-    <footer style="width:100%; text-align:center; margin-top:32px; margin-bottom:12px; color:#bbb; font-size:0.95em; letter-spacing:0.01em;">
+    <footer style="width:100%; text-align:center; margin-top:32px; margin-bottom:12px; color:#bbb; font-size:0.95em; letter-spacing:0.01em; padding: 0 1rem;">
       <span style="vertical-align:middle;">
       
         © 2025 Matías Navarrete — Uso interno exclusivo de Symmetry®
+        <br>
         Creado con React y Vite desde Manus app y VS Code.
       </span>
+      <p style="font-size: 0.85em; color: #999; margin-top: 12px; max-width: 56rem; margin-left: auto; margin-right: auto;">
+        <strong>Aviso de Privacidad:</strong> Esta herramienta funciona de forma local en tu navegador. Todos los datos que ingresas se guardan únicamente en el almacenamiento de tu dispositivo y nunca son transmitidos a un servidor.
+      </p>
     </footer>
     <script type="module" src="/src/main.jsx"></script>
   </body>
